@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Todo from "./components/Todo";
 import AddCourse from "./components/AddCourse";
 import Courses from "./components/Courses";
+import Course from "./components/Course";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/addcourse" element={<AddCourse/>} />
           <Route path="/courses" element={<Courses/>} />
+          <Route path="/courses/:courseId" element={<Course/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/signin" element={<Signin/>} />
           <Route path="/todos" element={<Todo/>} />

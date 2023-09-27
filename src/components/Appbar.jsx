@@ -24,7 +24,7 @@ function Appbar() {
     getUser();
   }, []);
 
-  // conditionally render the page
+  // conditionally render the page, if the user is login then show this
   if (userEmail) {
     return (
       <div
@@ -39,10 +39,16 @@ function Appbar() {
         </div>
 
         <div>
-          Email: { userEmail}
+          <Typography >{ userEmail }</Typography>
         </div>
   
         <div>
+          <Button
+              onClick={() => {
+                navigate("/courses");
+              }} 
+          >Courses
+          </Button>
           <Button
               onClick={() => {
                   navigate("/addcourse");
@@ -76,9 +82,9 @@ function Appbar() {
       <div>
         <Button
             onClick={() => {
-                navigate("/addcourse");
+                navigate("/courses");
             }} 
-        >Add Course
+        >Courses
         </Button>
         <Button
             onClick={() => {

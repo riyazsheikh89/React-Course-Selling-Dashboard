@@ -44,7 +44,7 @@ function Courses() {
 
 
 // component to render courses
-function RenderCourses(props) {
+export function RenderCourses(props) {
     return (
       <Card style={{ 
         margin: 10,
