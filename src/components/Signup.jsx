@@ -78,6 +78,7 @@ function Signup() {
               console.log("RESPONSE: ", data);
               // store the token inside local storage
               localStorage.setItem("token", data.token);
+              window.location = "/";
             }}
           >Sign Up</Button>
         </Card>

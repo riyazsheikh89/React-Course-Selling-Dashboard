@@ -5,6 +5,7 @@ function AddCourse() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [image, setImage] = useState("");
 
   return (
     <>
@@ -49,7 +50,17 @@ function AddCourse() {
             variant="outlined"
             fullWidth={true}
             onChange={(e) => {
-                setDescription(e.target.description)
+                setDescription(e.target.value)
+            }}
+          />
+          <br />
+          <br />
+          <TextField
+            label="Image Link"
+            variant="outlined"
+            fullWidth={true}
+            onChange={(e) => {
+                setImage(e.target.value)
             }}
           />
           <br />
@@ -65,10 +76,12 @@ function AddCourse() {
                     title,
                     description,
                     published: true,
-                    image: ""
-                    // published, iamge : these are hardcode value
+                    imageLink: image
+                    // published, iamgeLink : these are hardcoded value
                 })
-            })
+            });
+            const data = await response.json();
+            alert("Status: successfull added course");
             
           }}>
             Add Course
