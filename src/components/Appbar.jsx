@@ -20,6 +20,12 @@ function Appbar() {
       <div>
         <Button
             onClick={() => {
+                navigate("/addcourse");
+            }} 
+        >Add Course
+        </Button>
+        <Button
+            onClick={() => {
                 navigate("/signup");
             }} 
         >Sign Up

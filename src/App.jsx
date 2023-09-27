@@ -4,6 +4,7 @@ import Appbar from "./components/Appbar";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 import Todo from "./components/Todo";
+import AddCourse from "./components/AddCourse";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Appbar/>
          
         <Routes>
+          <Route path="/addcourse" element={<AddCourse/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/signin" element={<Signin/>} />
           <Route path="/todos" element={<Todo/>} />
