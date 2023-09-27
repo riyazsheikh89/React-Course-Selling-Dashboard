@@ -5,13 +5,15 @@ const Todo = () => {
     const [todo, setTodo] = useState("");
 
     const addTodo = () => {
+      if (todo === "")
+        return;
       setTodos([...todos, todo]);
       setTodo("");
     };
 
-    const removeTodo = (e) => {
+    const removeTodo = (index) => {
       const updatedTodo = [...todos];
-      updatedTodo.splice(e.index, 1);
+      updatedTodo.splice(index, 1);
       setTodos(updatedTodo);
     };
 
@@ -24,7 +26,11 @@ const Todo = () => {
 
     return (
       <div>
-        <h1>Best Todo List ever</h1>
+        <h1 style={{
+          fontFamily: "Roboto",
+          display: "flex",
+          justifyContent: 'center'
+        }}>Best Todo List ever</h1>
 
         <div>
           <input
@@ -44,7 +50,7 @@ const Todo = () => {
             {todos.map((todo, index) => (
               <li key={index}>
                 {todo}
-                <button onClick={removeTodo}>Remove</button>
+                <button onClick={() => removeTodo(index)}>Delete</button>
               </li>
             ))}
           </ul>
