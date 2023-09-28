@@ -1,6 +1,7 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Courses() {
 
@@ -44,25 +45,35 @@ function Courses() {
 
 
 // component to render courses
-export function RenderCourses(props) {
+export function RenderCourses({course}) {
+
+  const navigate = useNavigate()
+
+  const handleCardClick = () => {
+    navigate(`/courses/${course.id}`);
+  };
+
     return (
       <Card style={{ 
         margin: 10,
         width: 300,
-        minHeight: 200
-       }}>
+        minHeight: 200,
+        cursor: 'pointer'
+       }} 
+       onClick={handleCardClick}
+       >
         <CardMedia
           component="img"
           height="194"
-          image={props.course.imageLink}
+          image={course.imageLink}
           alt="Paella dish"
         />
         <CardContent>
           <Typography variant="h6" textAlign={"center"} >
-            {props.course.title}
+            {course.title}
           </Typography>
           <Typography variant="body2" textAlign={"center"} color="text.secondary">
-            {props.course.description}
+            {course.description}
           </Typography>
         </CardContent>
       </Card>
