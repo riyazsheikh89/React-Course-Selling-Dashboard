@@ -1,25 +1,25 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Courses() {
 
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        const getCourses = async() => {
-          const response = await fetch("http://localhost:3000/admin/courses", {
-            method: "GET",
+      const getCourses = async () => {
+        const { data } = await axios.get("http://localhost:3000/admin/courses", {
             headers: {
               "Content-type": "application/json",
-              "Authorization": `Bearer ${localStorage.getItem("token")}`
-            }
-          });
-          const data = await response.json();
-          console.log("Courses: ", data);
-          setCourses(data.courses);
-        }
-        getCourses();
-      }, []);
+              "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log("Courses: ", data);
+        setCourses(data.courses);
+      };
+      getCourses();
+    }, []);
 
     return (
       <>
@@ -35,7 +35,7 @@ function Courses() {
             justifyContent: "center",
         }}>
           {courses.map(course => {
-            return <RenderCourses course={course}/>;
+            return <RenderCourses key={course.id} course={course}/>;
           })}
         </div>
       </>

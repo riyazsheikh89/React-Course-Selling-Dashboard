@@ -1,5 +1,6 @@
 import { Button, Card, TextField } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 function AddCourse() {
 
@@ -66,23 +67,21 @@ function AddCourse() {
           <br />
           <br />
           <Button variant="contained" size={"large"} onClick={async () => {
-            const response = await fetch("http://localhost:3000/admin/courses", {
-                method: "POST",
-                headers: {
+            const config = {
+              headers: {
                     "Content-type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({
-                    title,
-                    description,
-                    published: true,
-                    imageLink: image
-                    // published, iamgeLink : these are hardcoded value
-                })
-            });
-            const data = await response.json();
+                }
+            }
+            const { data } = await axios.post("http://localhost:3000/admin/courses", {
+                title,
+                description,
+                published: true,
+                imageLink: image,
+              },
+              config
+            );
             alert("Status: successfull added course");
-            
           }}>
             Add Course
           </Button>

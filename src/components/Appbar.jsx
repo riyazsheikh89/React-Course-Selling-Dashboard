@@ -1,6 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Appbar() {
   // navigate different route without refreshing
@@ -9,14 +10,13 @@ function Appbar() {
 
   useEffect(() => {
     const getUser = async() => {
-      const response = await fetch("http://localhost:3000/admin/me", {
-        method: "GET",
+      const { data } = await axios.get("http://localhost:3000/admin/me", {
         headers: {
           "Content-type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       });
-      const data = await response.json();
+      // if user exists
       if (data.username) {
         setUserEmail(data.username);
       }

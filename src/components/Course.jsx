@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Card, CardContent, CardMedia, TextField, Typography } from "@mui/material";
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import axios from "axios";
 
 function Course() {
     const { courseId } = useParams();
@@ -9,15 +10,13 @@ function Course() {
 
     useEffect(() => {
         const getCourses = async() => {
-            const response = await fetch("http://localhost:3000/admin/courses", {
-              method: "GET",
+            const { data } = await axios.get("http://localhost:3000/admin/courses", {
               headers: {
                 "Content-type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
               }
             });
-            const data = await response.json();
-            console.log("Courses: ", data);
+            console.log("Courses inside course edit: ", data);
             setCourses(data.courses);
         }
         getCourses();
@@ -126,19 +125,20 @@ function UpdateCard(props) {
             variant="contained" 
             size={"large"} 
             onClick={async () => {
-            await fetch(`http://localhost:3000/admin/courses/${props.courseId}`, {
-                method: "PUT",
-                headers: {
-                    "Content-type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({
-                    title,
-                    description,
-                    published: true,
-                    imageLink: image
-                })
-            });
+            const config = {
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            };
+            await axios.put(`http://localhost:3000/admin/courses/${props.courseId}`, {
+                title,
+                description,
+                published: true,
+                imageLink: image,
+              },
+              config
+            );
             alert("Status: successfull updated course");
 
             let updatedCourses = [];

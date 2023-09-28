@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Card } from '@mui/material';
 import { useState } from 'react';
+import axios from "axios";
 
 function Signup() {
 
@@ -64,18 +65,17 @@ function Signup() {
           <br /> <br />
           <Button variant="contained"
             onClick={async () => {
-              const response = await fetch("http://localhost:3000/admin/signup", {
-                method: "POST",
-                body: JSON.stringify({
-                  username: email, 
-                  password: password
-                  }),
+              const config = {
                 headers: {
                   "Content-type": "Application/json"
                 }
-              });
-              const data = await response.json();
-              console.log("RESPONSE: ", data);
+              }
+              const { data } = await axios.post("http://localhost:3000/admin/signup", {
+                  username: email,
+                  password: password
+                }, config
+              )
+              console.log("Sighnup response: ", data);
               // store the token inside local storage
               localStorage.setItem("token", data.token);
               window.location = "/";
